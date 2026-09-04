@@ -105,9 +105,16 @@ for (const link of links) {
 }
 
 const scene = new GraphScene(graphEl, nodes, links);
+const htmlEntities: Record<string, string> = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  "'": '&#39;',
+  '"': '&quot;',
+};
 
 function escapeHtml(value: string) {
-  return value.replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char]!);
+  return value.replace(/[&<>'"]/g, (char) => htmlEntities[char]);
 }
 
 function renderDetail(node: GraphNode | null) {
